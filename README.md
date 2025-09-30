@@ -23,7 +23,6 @@ Once it's installed, start it up and leave it running in the background.
 
 1. Follow [this tutorial](https://docs.microsoft.com/en-us/cli/azure/install-azure-cli) to install the Azure CLI (`az`).
 2. Authenticate with your Azure account: open a terminal and run `az login`.
-3. Make sure you're running commands against the right subscription: run `az account set --subscription="SUBSCRIPTION_ID"`, replacing `SUBSCRIPTION_ID` with your Softwire Academy subscription ID.
 
 > You can find your subscription ID by logging in to the [Azure Portal](https://portal.azure.com), navigating to the Softwire Academy directory, and opening the Subscriptions service.
 
@@ -88,23 +87,23 @@ This application will turn our cluster into a basic Nginx server.
 
 Lets start by deploying a Deployment to our cluster.
 This Deployment will manage two Pods, each based on the `nginx` container image.
-We can create a `module-14-deployment-2-replicas.yaml` file to define our Deployment.
+We can create a `unit-13-deployment-2-replicas.yaml` file to define our Deployment.
 
 ```yaml
-# module-14-deployment-2-replicas.yaml
+# unit-13-deployment-2-replicas.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: module-14-deployment
+  name: unit-13-deployment
 spec:
   selector:
     matchLabels:
-      app: module-14-pod
+      app: unit-13-pod
   replicas: 2
   template:
     metadata:
       labels:
-        app: module-14-pod
+        app: unit-13-pod
     spec:
       containers:
         - name: container-name
@@ -114,7 +113,7 @@ spec:
 ```
 
 ```bash
-kubectl apply -f module-14-deployment-2-replicas.yaml
+kubectl apply -f unit-13-deployment-2-replicas.yaml
 ```
 
 Now we can watch Pods be created during the deployment.
@@ -125,8 +124,8 @@ kubectl get pods --watch
 
 > You can exit this command by pressing `CTRL+C`.
 >
-> You should now be able to see a `module-14` Deployment with two available Pods on the `Workloads` page of your cluster.
-> If you click through into the `module-14` Deployment's page, then you should see a single ReplicaSet containing two Pods.
+> You should now be able to see a `unit-13` Deployment with two available Pods on the `Workloads` page of your cluster.
+> If you click through into the `unit-13` Deployment's page, then you should see a single ReplicaSet containing two Pods.
 
 ### Deploying a Service using `kubectl`
 
@@ -138,11 +137,11 @@ Let's create a LoadBalancer Service that exposes a single external IP address fo
 kind: Service
 apiVersion: v1
 metadata:
-  name: module-14-service
+  name: unit-13-service
 spec:
   type: LoadBalancer
   selector:
-    app: module-14-pod
+    app: unit-13-pod
   ports:
     - protocol: TCP
       port: 80
@@ -157,17 +156,17 @@ The LoadBalancer Service type will create an externally accessible endpoint, but
 Let's watch the deployment as it progresses.
 
 ```bash
-kubectl get service module-14-service --watch
+kubectl get service unit-13-service --watch
 ```
 
 Initially, the `EXTERNAL-IP` will be `<pending>`, but after a short while we should get an external IP address.
 
 ```text
 NAME               TYPE           CLUSTER-IP   EXTERNAL-IP   PORT(S)          AGE
-module-14-service  LoadBalancer   10.0.37.27   <pending>     80:30572/TCP     6s
+unit-13-service  LoadBalancer   10.0.37.27   <pending>     80:30572/TCP     6s
 ```
 
-> You should now see a `module-14` Service on the `Services and ingresses` page of your cluster.
+> You should now see a `unit-13` Service on the `Services and ingresses` page of your cluster.
 > The Service's `External IP` should match the `EXTERNAL-IP` retrieved above.
 
 We now have a load balancer that will distribute network traffic between our Pods.
@@ -179,20 +178,20 @@ If our Service was experiencing heavy load, we might want to increase the number
 We can manually adjust that by changing the number of replicas in our Deployment definition, then re-deploying it.
 
 ```yaml
-# module-14-deployment-3-replicas.yaml
+# unit-13-deployment-3-replicas.yaml
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: module-14-deployment
+  name: unit-13-deployment
 spec:
   selector:
     matchLabels:
-      app: module-14-pod
+      app: unit-13-pod
   replicas: 3
   template:
     metadata:
       labels:
-        app: module-14-pod
+        app: unit-13-pod
     spec:
       containers:
         - name: container-name
@@ -202,10 +201,10 @@ spec:
 ```
 
 ```bash
-kubectl apply -f module-14-deployment-3-replicas.yaml
+kubectl apply -f unit-13-deployment-3-replicas.yaml
 ```
 
-Kubernetes will use the `app: module-14-pod` label to compare what's currently deployed to the cluster (two Pods), with what we want to be deployed (three Pods).
+Kubernetes will use the `app: unit-13-pod` label to compare what's currently deployed to the cluster (two Pods), with what we want to be deployed (three Pods).
 It will then create an additional Pod.
 
 We can check that we now have three Pods.
@@ -214,15 +213,15 @@ We can check that we now have three Pods.
 kubectl get pods --watch
 ```
 
-> The `module-14` Deployment on the `Workloads` page of your cluster should now have three available Pods.
+> The `unit-13` Deployment on the `Workloads` page of your cluster should now have three available Pods.
 
 ### Removing Deployments and Services
 
 Before we move on to Helm, let's get back to a clean slate by deleting our Deployment and Service.
 
 ```bash
-kubectl delete deployment module-14-deployment
-kubectl delete service module-14-service
+kubectl delete deployment unit-13-deployment
+kubectl delete service unit-13-service
 ```
 
 We now just have a cluster with a single Node, without any Pods or load balancers.
@@ -251,7 +250,7 @@ We can then view the status of the deployment:
 helm status my-chart
 ```
 
-Once the deployment has finished, there should be a new `module-14-helm` Service.
+Once the deployment has finished, there should be a new `unit-13-helm` Service.
 Navigating to this Service's IP address should show the Nginx homepage seen earlier.
 
 ### Updating a Service
