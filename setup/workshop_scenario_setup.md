@@ -2,7 +2,7 @@
 
 These instructions explain how to setup the scenario for today's exercise.
 
-First you'll need to setup an ACG Cloud Sandbox for Azure (as we have done on previous workshops).
+First you'll need to setup a Pluralsight Cloud Sandbox for Azure (as we have done on previous workshops).
 
 Once the sandbox is setup, login to the Azure portal and navigate to your resource group:
 

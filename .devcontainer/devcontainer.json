@@ -40,6 +40,6 @@
 	"features": {
 		"git": "os-provided",
 		"azure-cli": "latest",
-    	"ghcr.io/devcontainers/features/docker-in-docker:2.12.2": {}
+    	"ghcr.io/devcontainers/features/docker-in-docker:2.12.4": {}
 	}
 }

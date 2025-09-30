@@ -2,7 +2,7 @@
 
 ## Scenario
 
-Before starting the exercise you'll need to [setup the scenario on A Cloud Guru following the instructions here](./setup/workshop_scenario_setup.md).
+Before starting the exercise you'll need to [setup the scenario on Pluralsight following the instructions here](./setup/workshop_scenario_setup.md).
 
 
 ## Prerequisites
