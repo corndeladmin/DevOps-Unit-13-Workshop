@@ -1,5 +1,5 @@
 # Use official Python base image
-FROM --platform=linux/amd64 python:3.9-slim-bookworm as base
+FROM --platform=linux/amd64 python:3.12-slim-bookworm AS base
 
 ENV APP_INSTALL=/app
 ENV PYTHONPATH=${APP_INSTALL}
